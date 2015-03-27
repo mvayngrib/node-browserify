@@ -94,6 +94,8 @@ Standard Options:
   --standalone -s  Generate a UMD bundle for the supplied export name.
                    This bundle works with other module systems and sets the name
                    given as a window global if no module system is found.
+
+     --browser -b  Specify the browser field name. Defaults to "browser".
   
        --debug -d  Enable source maps that allow you to debug your files
                    separately.
@@ -645,6 +647,28 @@ or you can have overrides on a per-file basis:
 
 Note that the browser field only applies to files in the local module, and like
 transforms, it doesn't apply into `node_modules` directories.
+
+You can specify multiple configurations:
+
+``` json
+"browser": {
+  "dgram": "false"
+},
+"chromeapp": {
+  "dgram": "chrome-dgram"
+}
+```
+
+and use the --browser flag to indicate the one to use:
+
+    browserify --browser chromeapp main.js > bundle.js
+
+or
+
+    var bundle = browserify()
+      .browser('chromeapp')
+      ...
+      .build()
 
 ## browserify.transform
 

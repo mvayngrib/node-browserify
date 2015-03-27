@@ -58,6 +58,7 @@ function Browserify (files, opts) {
     self._transforms = [];
     self._entryOrder = 0;
     self._ticked = false;
+    self._browser = opts.browser;
 
     var ignoreTransform = [].concat(opts.ignoreTransform).filter(Boolean);
     self._filterTransform = function (tr) {
@@ -321,6 +322,11 @@ Browserify.prototype.transform = function (tr, opts) {
     return this;
 };
 
+Browserify.prototype.browser = function(browser) {
+    this._browser = browser;
+    return this;
+}
+
 Browserify.prototype.plugin = function (p, opts) {
     if (isarray(p)) {
         opts = p[1];
@@ -439,6 +445,9 @@ Browserify.prototype._createDeps = function (opts) {
     mopts.resolve = function (id, parent, cb) {
         if (self._ignore.indexOf(id) >= 0) return cb(null, paths.empty, {});
         
+        // support alt 'browser' field
+        if (self._browser) parent.browser = self._browser;
+
         bresolve(id, parent, function (err, file, pkg) {
             if (file && self._ignore.indexOf(file) >= 0) {
                 return cb(null, paths.empty, {});

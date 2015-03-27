@@ -34,7 +34,8 @@ module.exports = function (args, opts) {
             o: 'outfile',
             e: 'entry',
             c: 'command',
-            bare: 'bear'
+            bare: 'bear',
+            b: 'browser'
         },
         'default': {
             ig: false,
@@ -86,7 +87,8 @@ module.exports = function (args, opts) {
         insertGlobalVars: insertGlobalVars,
         ignoreMissing: argv['ignore-missing'] || argv.im,
         debug: argv['debug'] || argv.d,
-        standalone: argv['standalone'] || argv.s
+        standalone: argv['standalone'] || argv.s,
+        browser: argv.browser
     }, opts));
     function error (msg) {
         var e = new Error(msg);

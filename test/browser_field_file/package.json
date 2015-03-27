@@ -1,5 +1,8 @@
 {
   "browser": {
     "./xyz": "wow.js"
+  },
+  "chromeapp": {
+    "./xyz": "chicken.js"
   }
 }
